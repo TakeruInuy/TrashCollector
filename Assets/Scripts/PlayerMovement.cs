@@ -4,6 +4,7 @@ using UnityEngine.Events;
 public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody _rb;
+    [SerializeField] private Animator _animator;
     [SerializeField] private float _moveSpeed = 5f;
     [SerializeField] private float _acceleration = 10f;
     [SerializeField] private float _deceleration = 15f;
@@ -82,10 +83,14 @@ public class PlayerMovement : MonoBehaviour
         bool wasMoving = isMoving;
         isMoving = _currentSpeed > 0.01f;
 
+
         if (isMoving && !wasMoving)
             onMovement.Invoke();
         else if (!isMoving && wasMoving)
             onStop.Invoke();
+
+        float animSpeed = _currentSpeed / _moveSpeed;
+        _animator.SetFloat("Speed", animSpeed);
     }
 
     private void RotateToInput()
