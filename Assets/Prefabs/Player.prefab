@@ -196,7 +196,6 @@ MonoBehaviour:
   onAction:
     m_PersistentCalls:
       m_Calls: []
-  enemiesCollected: []
   weightCarried: 0
   _enemyOnBackDepthOffset: 1
   _enemyOnBackHeightOffset: 1
@@ -251,7 +250,21 @@ MonoBehaviour:
   _UIScaleMultiplier: 1
   onAction:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6210142237607986751}
+        m_TargetAssemblyTypeName: PlayerEnemyCollect, Assembly-CSharp
+        m_MethodName: RefreshEnemiesCollectedFollow
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _dumpInterval: 2
+  _dumpSpeed: 1
 --- !u!1 &3424941440449027282
 GameObject:
   m_ObjectHideFlags: 0

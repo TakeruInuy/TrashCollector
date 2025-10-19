@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -7,7 +8,7 @@ using static UnityEngine.EventSystems.EventTrigger;
 public class PlayerEnemyCollect : PlayerInteraction
 {
     //private int _resourcesToAdd;
-    public List<Enemy> enemiesCollected;
+    public static List<Enemy> enemiesCollected;
     public float weightCarried;
 
     [Header("Enemy Collection Attributes")]
@@ -86,6 +87,30 @@ public class PlayerEnemyCollect : PlayerInteraction
 
         //enemy.followTarget.EnableFollow(_collectedEnemiesFollowTarget, _collectedEnemiesBaseFollowSpeed * _collectedEnemyFollowCurve.Evaluate(enemiesCollected.IndexOf(enemy) / 100f));
     }
+
+    public void RefreshEnemiesCollectedFollow()
+    {
+        for (int i = 0; i < enemiesCollected.Count; i++)
+        {
+            if(i == 0)
+            {
+                enemiesCollected[i].followTarget.EnableFollow(GetComponent<Rigidbody>(),
+                _collectedEnemiesFollowTarget,
+                _enemyOnBackHeightOffset,
+                _enemyOnBackDepthOffset,
+                _collectedEnemiesBaseStiffness,
+                _collectedEnemiesBaseDamper);
+            }
+            else
+                enemiesCollected[i].followTarget.EnableFollow(enemiesCollected[enemiesCollected.IndexOf(enemiesCollected[i]) - 1].GetComponent<Rigidbody>(), //Rigidbody of enemy on bottom
+                enemiesCollected[enemiesCollected.IndexOf(enemiesCollected[i]) - 1].transform, //transform of bottom enemy
+                _enemyOnBackHeightOffset,
+                0,
+                _collectedEnemiesBaseStiffness * _collectedEnemyFollowCurve.Evaluate(enemiesCollected.IndexOf(enemiesCollected[i]) / 50f), //stiffness considering position on the enemy pile
+                _collectedEnemiesBaseDamper * _collectedEnemyFollowCurve.Evaluate(enemiesCollected.IndexOf(enemiesCollected[i]) / 100f)); //damp considering position on the enemy pile
+        }
+    }
+
 
     private void GenerateFollowTarget()
     {

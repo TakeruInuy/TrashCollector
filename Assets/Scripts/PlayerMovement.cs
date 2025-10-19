@@ -12,7 +12,7 @@ public class PlayerMovement : MonoBehaviour
     private float _currentSpeed = 0f;
 
     public bool isMoving;
-    public bool canMove = true;
+    public static bool canMove = true;
     public UnityEvent onMovement;
     public UnityEvent onStop;
 

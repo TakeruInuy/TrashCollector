@@ -5,6 +5,8 @@ using UnityEngine.UI;
 public class Enemy : Entity
 {
 
+    public TrashColor.TrashColorTag trashColor;
+
 
     [SerializeField] private int _baseHitPoints = 2;
     private int _currentHitPoints;
