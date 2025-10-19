@@ -8,6 +8,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _acceleration = 10f;
     [SerializeField] private float _deceleration = 15f;
     [SerializeField] private float _turnSpeed = 720f;
+    [SerializeField] private float _maxWeight = 10;
+    [SerializeField] private float _maxSpeedReduction = 50f;
+
 
     private float _currentSpeed = 0f;
 
@@ -50,8 +53,12 @@ public class PlayerMovement : MonoBehaviour
     {
         Vector3 input = InputManager.inputDirection;
 
+        //Check movespeed Debuff
+        var speedDebuff = Mathf.Clamp(PlayerEnemyCollect.enemiesCollected.Count, 0, _maxWeight) / _maxWeight * _maxSpeedReduction;
 
-        float targetSpeed = input.magnitude > 0 ? _moveSpeed : 0f;
+
+        Debug.Log("Speed Debuf %" + speedDebuff);
+        float targetSpeed = input.magnitude > 0 ? _moveSpeed * (1f - speedDebuff/100) : 0f;
 
         float speedChangeRate = input.magnitude > 0 ? _acceleration : _deceleration;
         _currentSpeed = Mathf.MoveTowards(_currentSpeed, targetSpeed, speedChangeRate * Time.fixedDeltaTime);

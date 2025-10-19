@@ -9,7 +9,7 @@ public class PlayerEnemyCollect : PlayerInteraction
 {
     //private int _resourcesToAdd;
     public static List<Enemy> enemiesCollected;
-    public float weightCarried;
+    public static float weightCarried;
 
     [Header("Enemy Collection Attributes")]
     [SerializeField] private float _enemyOnBackDepthOffset = 1f;
