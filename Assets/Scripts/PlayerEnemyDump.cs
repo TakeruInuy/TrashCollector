@@ -31,13 +31,13 @@ public class PlayerEnemyDump : PlayerInteraction
     {
         isMoving = true;
         PlayerMovement.canMove = false;
-
+        var enemies = PlayerEnemyCollect.enemiesCollected;
 
 
         for (int i = PlayerEnemyCollect.enemiesCollected.Count - 1; i >= 0; i--)
         {
      
-            InertiaFollowTarget objFollowComponent = PlayerEnemyCollect.enemiesCollected[i].GetComponent<InertiaFollowTarget>();
+            InertiaFollowTarget objFollowComponent = enemies[i].GetComponent<InertiaFollowTarget>();
             
             if (objFollowComponent == null) continue;
 
@@ -45,30 +45,73 @@ public class PlayerEnemyDump : PlayerInteraction
             objFollowComponent.rb.linearVelocity = Vector3.zero;
 
             bool containTagColor = false;
+
+ 
             
             foreach (TrashColor.TrashColorTag tagColor in dumpster.Tags)
             {
-                if (tagColor == PlayerEnemyCollect.enemiesCollected[i].trashColor)
-                    containTagColor = true;                
+                if (tagColor == enemies[i].trashColor)
+                {
+                    containTagColor = true;
+                    break;
+                }
             }
-            Debug.Log("contain tag color = " + containTagColor);
 
-            if (containTagColor)
+
+            if (!containTagColor) continue;
+
+
+            // Stores color to check
+            var targetColor = enemies[i].trashColor;
+            List<Enemy> groupToDump = new List<Enemy> { enemies[i] };
+
+            // Checks for same color in sequence
+            int j = i - 1;
+            while (j >= 0 && enemies[j].trashColor == targetColor)
             {
-                Vector3 dir = (dumpster.transform.position - objFollowComponent.rb.position).normalized;
-                objFollowComponent.rb.linearVelocity = dir * _dumpSpeed;
+                groupToDump.Add(enemies[j]);
 
+                j--;
+            }
 
-                yield return new WaitForSeconds(_dumpInterval);
-
-                PlayerEnemyCollect.enemiesCollected.Remove(PlayerEnemyCollect.enemiesCollected[i]);
-                objFollowComponent.rb.linearVelocity = Vector3.zero;
-                objFollowComponent.gameObject.SetActive(false);
+            // Move all consecutive colors at the same time
+            foreach (var obj in groupToDump)
+            {
+                var follow = obj.GetComponent<InertiaFollowTarget>();
+                if (follow == null) continue;
+                Debug.Log(obj);
+                Vector3 dir = (dumpster.transform.position - follow.rb.position).normalized;
+                follow.rb.linearVelocity = dir * _dumpSpeed;
+                Debug.Log(follow.rb.linearVelocity);
             }
 
 
+            yield return new WaitForSeconds(_dumpInterval);
+
+            // removes dumped items
+            foreach (var obj in groupToDump)
+            {
+                var follow = obj.GetComponent<InertiaFollowTarget>();
+                if (follow == null) continue;
+
+                follow.rb.linearVelocity = Vector3.zero;
+                obj.gameObject.SetActive(false);
+                enemies.Remove(obj);
+            }
+
+            // Adjusts main loop
+            i = j + 1;
 
 
+            //Vector3 dir = (dumpster.transform.position - objFollowComponent.rb.position).normalized;
+            //    objFollowComponent.rb.linearVelocity = dir * _dumpSpeed;
+
+
+            //    yield return new WaitForSeconds(_dumpInterval);
+
+            //    PlayerEnemyCollect.enemiesCollected.Remove(PlayerEnemyCollect.enemiesCollected[i]);
+            //    objFollowComponent.rb.linearVelocity = Vector3.zero;
+            //    objFollowComponent.gameObject.SetActive(false);
 
         }
 
