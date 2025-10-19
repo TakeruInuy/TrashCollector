@@ -89,6 +89,8 @@ public class PlayerEnemyDump : PlayerInteraction
 
             yield return new WaitForSeconds(_dumpInterval);
 
+            var scoreMultiplier = 0;
+
             // removes dumped items
             foreach (var obj in groupToDump)
             {
@@ -98,7 +100,10 @@ public class PlayerEnemyDump : PlayerInteraction
                 follow.rb.linearVelocity = Vector3.zero;
                 obj.gameObject.SetActive(false);
                 enemies.Remove(obj);
+                scoreMultiplier++;
             }
+            Debug.Log(scoreMultiplier.ToString());
+            ScoreManager.Instance.AddScore(1000 * scoreMultiplier * scoreMultiplier);
 
             // Adjusts main loop
             i = j + 1;

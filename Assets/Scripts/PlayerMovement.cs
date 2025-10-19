@@ -57,7 +57,7 @@ public class PlayerMovement : MonoBehaviour
         var speedDebuff = Mathf.Clamp(PlayerEnemyCollect.enemiesCollected.Count, 0, _maxWeight) / _maxWeight * _maxSpeedReduction;
 
 
-        Debug.Log("Speed Debuf %" + speedDebuff);
+       
         float targetSpeed = input.magnitude > 0 ? _moveSpeed * (1f - speedDebuff/100) : 0f;
 
         float speedChangeRate = input.magnitude > 0 ? _acceleration : _deceleration;
