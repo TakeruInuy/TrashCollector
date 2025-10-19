@@ -80,6 +80,7 @@ public class PlayerEnemyDump : PlayerInteraction
                 var follow = obj.GetComponent<InertiaFollowTarget>();
                 if (follow == null) continue;
                 Debug.Log(obj);
+                follow.DisableFollow();
                 Vector3 dir = (dumpster.transform.position - follow.rb.position).normalized;
                 follow.rb.linearVelocity = dir * _dumpSpeed;
                 Debug.Log(follow.rb.linearVelocity);
