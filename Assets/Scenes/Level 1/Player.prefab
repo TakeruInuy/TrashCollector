@@ -177,7 +177,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   _dumpInterval: 1
-  _dumpSpeed: 8
+  _dumpSpeed: 12
 --- !u!1 &3424941440449027282
 GameObject:
   m_ObjectHideFlags: 0

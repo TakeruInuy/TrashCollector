@@ -4,20 +4,9 @@ using System.Collections;
 
 public class SceneController : MonoBehaviour
 {
-    public static SceneController Instance { get; private set; }
 
-    private void Awake()
-    {
-        // Singleton básico
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
 
-        Instance = this;
-        DontDestroyOnLoad(gameObject);
-    }
+
 
     // 🔹 Carregar cena por nome
     public void LoadScene(string sceneName)
