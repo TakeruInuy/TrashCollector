@@ -95,7 +95,7 @@ MonoBehaviour:
     AngularDampingMode: 0
     RotationDamping: {x: 1, y: 1, z: 1}
     QuaternionDamping: 1
-  FollowOffset: {x: 0, y: 35.43, z: -15.32}
+  FollowOffset: {x: 0, y: 26.4, z: -37.5}
 --- !u!114 &8115168535997929096
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -109,7 +109,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineRotationComposer
   Composition:
-    ScreenPosition: {x: 0.01970509, y: -0.07114166}
+    ScreenPosition: {x: 0, y: -0.07114166}
     DeadZone:
       Enabled: 1
       Size: {x: 0.5497538, y: 0.3263479}

@@ -24,6 +24,8 @@ public class Timer : MonoBehaviour
         currentTime -= Time.deltaTime;
         currentTime = Mathf.Max(currentTime, 0f); 
 
+        ScoreManager.Instance.timerMultiplier = currentTime/startTime;
+
         if (timerText != null)
             timerText.text = FormatTime(currentTime);
 
@@ -40,6 +42,11 @@ public class Timer : MonoBehaviour
         int minutes = Mathf.FloorToInt(t / 60);
         int seconds = Mathf.FloorToInt(t % 60);
         return $"{minutes:00}:{seconds:00}";
+    }
+
+    public void SetTimer(bool timerSet)
+    {
+        isRunning = timerSet;
     }
 }
 

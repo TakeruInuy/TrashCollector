@@ -101,6 +101,7 @@ public class PlayerEnemyDump : PlayerInteraction
                 obj.gameObject.SetActive(false);
                 enemies.Remove(obj);
                 scoreMultiplier++;
+                ScoreManager.Instance.IncreaseTrashCollected(1);
             }
             Debug.Log(scoreMultiplier.ToString());
             ScoreManager.Instance.AddScore(1000 * scoreMultiplier * scoreMultiplier);
