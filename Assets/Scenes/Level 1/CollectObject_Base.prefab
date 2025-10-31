@@ -127,9 +127,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trashColor: 0
+  trashIcon: {fileID: 4351198716389223707}
   _baseHitPoints: 0
   carryWeight: 5
-  _hpBar: {fileID: 0}
   isDead: 1
   followTarget: {fileID: 0}
   onDamageTaken:

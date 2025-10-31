@@ -29,6 +29,7 @@ public class PlayerEnemyCollect : PlayerInteraction
     //[SerializeField] private int _upgradeCost = 1;
 
     public UnityEvent onClear;
+    public UnityEvent onCollect;
 
 
 
@@ -66,8 +67,10 @@ public class PlayerEnemyCollect : PlayerInteraction
         enemy.transform.position = new Vector3(enemy.transform.position.x,
             enemy.transform.position.y + _enemyOnBackHeightOffset * enemiesCollected.IndexOf(enemy),
             enemy.transform.position.z);
-        if (enemiesCollected.IndexOf(enemy) == 0 ) //Checks if is first enemy
+        if (enemiesCollected.IndexOf(enemy) == 0 ) //Checks if is first enemy, and collects it
         {
+            onCollect.Invoke();
+            enemy.trashIcon.enabled = false;
             enemy.followTarget.EnableFollow(GetComponent<Rigidbody>(), 
                 _collectedEnemiesFollowTarget, 
                 _enemyOnBackHeightOffset, 
@@ -75,8 +78,10 @@ public class PlayerEnemyCollect : PlayerInteraction
                 _collectedEnemiesBaseStiffness, 
                 _collectedEnemiesBaseDamper);
         }
-        else
+        else //collects if not first enemy
         {
+            onCollect.Invoke();
+            enemy.trashIcon.enabled = false;
             enemy.followTarget.EnableFollow(enemiesCollected[enemiesCollected.IndexOf(enemy) - 1].GetComponent<Rigidbody>(), //Rigidbody of enemy on bottom
                 enemiesCollected[enemiesCollected.IndexOf(enemy) - 1].transform, //transform of bottom enemy
                 _enemyOnBackHeightOffset,

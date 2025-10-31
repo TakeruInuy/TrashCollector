@@ -6,12 +6,13 @@ public class Enemy : Entity
 {
 
     public TrashColor.TrashColorTag trashColor;
+    public Image trashIcon;
 
 
     [SerializeField] private int _baseHitPoints = 2;
     private int _currentHitPoints;
     public float carryWeight = 5f;
-    [SerializeField] private Image _hpBar;
+    
     //public int resourceDropped = 2;
     public bool isDead = false;
     //[HideInInspector]public FollowTarget followTarget;
@@ -27,13 +28,13 @@ public class Enemy : Entity
     {
         followTarget = GetComponent<InertiaFollowTarget>();
         _currentHitPoints = _baseHitPoints;
-        onDamageTaken.AddListener(UpdateHPBar);
     }
 
     private void OnEnable()
     {
         followTarget.DisableFollow();
         _currentHitPoints = _baseHitPoints;
+        trashIcon.enabled = true;
     }
 
     public void TakeDamage(int damageToTake)
@@ -56,9 +57,4 @@ public class Enemy : Entity
         }        
     }
 
-    public void UpdateHPBar()
-    {
-        if(_hpBar)
-            _hpBar.fillAmount = _currentHitPoints/ (float)_baseHitPoints;
-    }
 }
