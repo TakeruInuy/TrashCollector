@@ -48,5 +48,11 @@ public class Timer : MonoBehaviour
     {
         isRunning = timerSet;
     }
+
+    public void ResetTimer()
+    {
+        SetTimer(true);
+        currentTime = startTime;
+    }
 }
 

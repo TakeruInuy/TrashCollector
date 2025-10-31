@@ -100,4 +100,10 @@ public class ScoreManager : MonoBehaviour
         score = (int)finalScore;
     }
 
+    public void ResetScore()
+    {
+        score = 0;
+        trashCollected = 0;
+    }
+
 }

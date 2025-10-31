@@ -110,8 +110,8 @@ MonoBehaviour:
   onAction:
     m_PersistentCalls:
       m_Calls: []
-  _enemyOnBackDepthOffset: 1
-  _enemyOnBackHeightOffset: 1
+  _enemyOnBackDepthOffset: 2
+  _enemyOnBackHeightOffset: 1.3
   _startingEnemiesCollectedCapacity: 50
   _collectedEnemiesBaseStiffness: 1000
   _collectedEnemiesBaseDamper: 50
